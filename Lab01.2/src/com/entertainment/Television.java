@@ -42,10 +42,27 @@ public class Television {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        // if I am the same physical object as obj return true ex: tv1.equals(tv1);
+        if (this == obj) return true;
+
+        // if obj is null  OR  I and obj are not the same EXACT type ex: tv1.equals(null); || tv1.equals("hello");
+        if (obj == null || this.getClass() != obj.getClass()) return false;
+
+        Television that = (Television) obj;
+        return this.getVolume() == that.getVolume() && this.getBrand().equals(that.getBrand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrand(), getVolume());
+    }
+
+    /*
+    @Override
     public int hashCode() {
         // this is a poorly written hash function, because it easily results in "hash collisions"
         // a "hash collision" is when different objects (by equals()) have the SAME hashcode (dumb luck)
-        // return getBrand().length() + getVolume();
 
         // we can use java.util.Objects to help us create a "scientifically correct" hash function,
         // i.e., one the minimizes the probability of hash collisions
@@ -57,7 +74,7 @@ public class Television {
         boolean result = false;
 
         // proceed only if 'obj' is really a reference to a Television object
-        if (obj instanceof Television) {
+        if (this.getClass() == obj.getClass() && obj != null) {    // okay to use == for Class Objects and Enums
             // safely downcast to more specific type Television, so we can call Television methods
             Television other = (Television) obj;
 
@@ -67,6 +84,7 @@ public class Television {
         }
         return result;
     }
+*/
 
     @Override
     public String toString() {

@@ -2,7 +2,7 @@ package com.entertainment;
 
 import java.util.Objects;
 
-public class Television {
+public class Television implements Comparable<Television> {
     private String brand;
     private int volume;
 
@@ -85,6 +85,15 @@ public class Television {
         return result;
     }
 */
+
+    /*
+     * Natural order is defined by 'brand' (String)
+     * Since brand (String) is already Comparable, just delegate to its compareTo() method.
+     */
+    @Override
+    public int compareTo(Television that) {
+        return this.getBrand().compareTo(that.getBrand());
+    }
 
     @Override
     public String toString() {

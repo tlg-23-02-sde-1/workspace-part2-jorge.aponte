@@ -10,30 +10,51 @@ package com.math;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+import org.junit.*;
 
 public class CalculatorTest {
+    // object(s) under test- called a "fixture" in JUNIT
+    private Calculator calc;
     private static final double DELTA = 1e-12;
-    private static final Calculator calc = new Calculator();
+
+    @BeforeClass
+    public static void initializeEntireTestRun() {
+        System.out.println("initializeEntireTestRun");
+    }
+
+    @AfterClass
+    public static void finalizeTestRun() {
+        System.out.println("finalizeTestRun");
+    }
+
+    @Before
+    public void setUp() {
+        System.out.println("setUp");
+        calc = new Calculator();
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("tearDown");
+    }
 
     @Test
-    public void testAdd() {
+    public void onePlusFourEqualsFive() {
         System.out.println("testAdd");
-//        Calculator calc = new Calculator();
         assertEquals(5, calc.add(1, 4));  // expected, actual
+        assertNotEquals(10,calc.add(10,2));
     }
 
     @Test
     public void testDivide() {
         System.out.println("testDivide");
-//        Calculator calc = new Calculator();
         assertEquals(2.5, calc.divide(5, 2), DELTA);  // expected, actual, delta
+        assertNotEquals(4.5,calc.divide(10,2), DELTA);
     }
 
     @Test
     public void testIsEven() {
         System.out.println("testIsEven");
-//        Calculator calc = new Calculator();
         assertTrue(calc.isEven(10));    // condition
         assertFalse(calc.isEven(11));   // condition
     }

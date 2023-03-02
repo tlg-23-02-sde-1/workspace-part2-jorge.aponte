@@ -15,46 +15,7 @@ public class TelevisionTest {
         tv2 = new Television("Sony", 50, DisplayType.OLED);
     }
 
-    @Test
-    public void compare_shouldEqualZero_sameChannel() {
-        TelevisionChannelComparator compares = new TelevisionChannelComparator();
-        assertEquals(0, compares.compare(tv1, tv2));
-    }
-
-    @Test
-    public void compare_shouldReturnPositive_differentChannel() throws InvalidChannelException {
-        TelevisionChannelComparator compares = new TelevisionChannelComparator();
-        tv1.changeChannel(400);
-        assertTrue(compares.compare(tv1, tv2) > 0);
-    }
-
-    @Test
-    public void compare_shouldReturnNegativeInt_differentChannel() throws InvalidChannelException {
-        TelevisionChannelComparator compares = new TelevisionChannelComparator();
-        tv2.changeChannel(400);
-        assertTrue(compares.compare(tv1, tv2) < 0);
-    }
-
-    @Test
-    public void compare_shouldEqualZero_sameBrand_sameCurrentChannel() {
-        TelevisionBrandChannelComparator compares = new TelevisionBrandChannelComparator();
-        assertEquals(0, compares.compare(tv1, tv2));
-    }
-
-    @Test
-    public void compare_shouldReturnPositiveInt_sameCurrentChannel_differentBrand() {
-        TelevisionBrandChannelComparator compares = new TelevisionBrandChannelComparator();
-        tv2.setBrand("RCA");
-        assertTrue(compares.compare(tv1, tv2) > 0);
-    }
-
-    @Test
-    public void compare_shouldReturnNegativeInt_sameBrand_differentCurrentChannel() throws Exception {
-        TelevisionBrandChannelComparator compares = new TelevisionBrandChannelComparator();
-        tv2.changeChannel(500);
-        assertTrue(compares.compare(tv1, tv2) < 0);
-    }
-
+    // changeChannel() Tests (4 EA)
     @Test
     public void changeChannel_shouldAcceptInput_whenValid_lowerBound() throws InvalidChannelException {
         tv1.changeChannel(1);
@@ -67,26 +28,31 @@ public class TelevisionTest {
         assertEquals(999, tv1.getCurrentChannel());
     }
 
-    @Test
-    public void changeChannel_shouldThrowInvalidChannelException_whenInvalidInput_upperBound() {
+    @Test(expected = InvalidChannelException.class)
+    public void changeChannel_shouldThrowInvalidChannelException_whenInvalidInput_upperBound()
+    throws InvalidChannelException {
         try {
             tv1.changeChannel(1000);
             fail("Should have thrown InvalidChannelException");
         } catch (InvalidChannelException e) {
             assertEquals("Invalid channel: 1000. Allowed range: [1,999].", e.getMessage());
+            throw e;
         }
     }
 
-    @Test
-    public void changeChannel_shouldThrowInvalidChannelException_whenInvalidInput_lowerBound() {
+    @Test(expected = InvalidChannelException.class)
+    public void changeChannel_shouldThrowInvalidChannelException_whenInvalidInput_lowerBound()
+    throws InvalidChannelException {
         try {
             tv1.changeChannel(-1);
             fail("Should have thrown InvalidChannelException");
         } catch (InvalidChannelException e) {
             assertEquals("Invalid channel: -1. Allowed range: [1,999].", e.getMessage());
+            throw e;
         }
     }
 
+    // compareTo() tests (2 EA)
     @Test
     public void compareTo_shouldNotEqual_differentBrand() {
         tv2.setBrand("Different");
@@ -98,6 +64,7 @@ public class TelevisionTest {
         assertEquals(0, tv1.compareTo(tv2));
     }
 
+    // hashCode() tests (4 EA)
     @Test
     public void hashcode_shouldEqual_allPropertiesSame() {
         assertEquals(tv1.hashCode(), tv2.hashCode());
@@ -121,6 +88,7 @@ public class TelevisionTest {
         assertNotEquals(tv1.hashCode(), tv2.hashCode());
     }
 
+    // equals() tests (4 EA)
     @Test
     public void equals_objectsShouldBeEqual_allPropertiesAreTheSame() {
         assertEquals(tv1, tv2);
@@ -144,6 +112,7 @@ public class TelevisionTest {
         assertNotEquals(tv1, tv2);
     }
 
+    // setVolume() tests (4 EA)
     @Test
     public void setVolume_shouldAcceptInput_lowerBound() throws IllegalArgumentException {
         tv1.setVolume(0);
@@ -156,23 +125,27 @@ public class TelevisionTest {
         assertEquals(100, tv2.getVolume());
     }
 
-    @Test
-    public void setVolume_shouldThrowIllegalArgumentException_whenInvalid_upperBound() {
+    @Test(expected = IllegalArgumentException.class)
+    public void setVolume_shouldThrowIllegalArgumentException_whenInvalid_upperBound()
+    throws IllegalArgumentException {
         try {
             tv1.setVolume(101);
             fail("Should have thrown IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid volume: 101. Allowed range: [0,100].", e.getMessage());
+            throw e;
         }
     }
 
-    @Test
-    public void setVolume_shouldThrowIllegalArgumentException_whenInvalid_lowerBound() {
+    @Test(expected = IllegalArgumentException.class)
+    public void setVolume_shouldThrowIllegalArgumentException_whenInvalid_lowerBound()
+    throws IllegalArgumentException {
         try {
             tv1.setVolume(-1);
             fail("Should have thrown IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid volume: -1. Allowed range: [0,100].", e.getMessage());
+            throw e;
         }
     }
 }

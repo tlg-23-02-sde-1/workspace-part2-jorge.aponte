@@ -12,15 +12,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class ShoppingCart<T> {
-  // storage for the cart's contents
-  private Collection<T> items = new ArrayList<T>();  // diamond not used here just to emphasize the T
-  
-  public void addItem(T item) {
-    items.add(item);
-  }
-  
-  public void removeItem(T item) {
-    items.remove(item);
-  }
+public class ShoppingCart<T extends Product> {
+    // storage for the cart's contents
+    private Collection<T> items = new ArrayList<T>();  // diamond not used here just to emphasize the T
+
+    public void addItem(T item) {
+        items.add(item);
+    }
+
+    public void removeItem(T item) {
+        items.remove(item);
+    }
+
+    public Collection<T> allItems() {
+        return Collections.unmodifiableCollection(items);
+    }
+
+    public int size() {
+        return items.size();
+    }
+
+    public double total() {
+        double sum = 0.0;
+        for(T item: items) {
+            sum += item.getPrice();
+        }
+        return sum;
+    }
 }

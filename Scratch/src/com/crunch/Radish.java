@@ -1,6 +1,10 @@
 package com.crunch;
 
-class Radish implements Comparable<Radish>{
+/*
+ * Natural order is determined by 'size' (double).
+ *
+ */
+class Radish implements Comparable<Radish> {
     private String color;
     private double size;
     private double tailLength;
@@ -47,7 +51,7 @@ class Radish implements Comparable<Radish>{
 
     @Override
     public int compareTo(Radish other) {
-        return Double.compare(this.getSize(),other.getSize());
+        return Double.compare(this.getSize(), other.getSize());
     }
 
     @Override

@@ -5,18 +5,19 @@ import java.util.Collections;
 import java.util.List;
 
 class DuckRacer {
+    // fields or instance variables
     private final int id;
     private String name;
     private final List<Reward> rewards = new ArrayList<>();
 
     // ctor
     public DuckRacer(int id, String name) {
-        setName(name);
         this.id = id;
+        setName(name);
     }
 
     // business methods
-    public void win(Reward reward){
+    public void win(Reward reward) {
         rewards.add(reward);
     }
 

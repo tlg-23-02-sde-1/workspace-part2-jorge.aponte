@@ -17,25 +17,29 @@ import org.junit.runners.MethodSorters;
 /**
  * TODO: use an annotation(s) in this class to apply some control over the order of test execution.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MethodOrderTest {
-  
-  @Test
-  public void shouldIOrderTheExceutionOfMyTests() {
-    System.out.println("shouldIOrderTheExceutionOfMyTests");
-  }
-  
-  @Test
-  public void testSomething() {
-    System.out.println("testSomething");
-  }
 
-  @Test
-  public void businessMethodShouldWorkCorrectly() {
-    System.out.println("businessMethodShouldWorkCorrectly");
-  }
-  
-  @Test
-  public void throwsExceptionIfUserDoesNotHaveSufficientPrivileges() {
-    System.out.println("throwsExceptionIfUserDoesNotHaveSufficientPrivileges");
-  }
+    @Rule
+    public TestName name= new TestName();
+
+    @Test
+    public void shouldIOrderTheExceutionOfMyTests() {
+        System.out.println(name.getMethodName());
+    }
+
+    @Test
+    public void testSomething() {
+        System.out.println(name.getMethodName());
+    }
+
+    @Test
+    public void businessMethodShouldWorkCorrectly() {
+        System.out.println(name.getMethodName());
+    }
+
+    @Test
+    public void throwsExceptionIfUserDoesNotHaveSufficientPrivileges() {
+        System.out.println(name.getMethodName());
+    }
 }

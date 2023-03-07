@@ -77,7 +77,7 @@ class Board {
         System.out.println("-- \t ---- \t ---- \t -------");
         Collection<DuckRacer> allRacers = racerMap.values();
         for (DuckRacer racer : allRacers) {
-            System.out.printf("%s \t %s \t  %s \t%s\n"
+            System.out.printf("%s \t %s \t  %s \t %s\n"
                     ,racer.getId(),racer.getName(),racer.getWins(),racer.getRewards());  // toString() automatically called
         }
     }

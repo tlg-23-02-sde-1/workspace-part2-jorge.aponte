@@ -13,8 +13,19 @@ public class EmployeeTest {
 
     @Before
     public void setUp() {
-        emp1 = new SalariedEmployee("Josh", Date.valueOf("2020-10-10"));
-        emp2 = new SalariedEmployee("Josh", Date.valueOf("2020-10-10"));
+        // emp1 = new DummyEmployee("Josh", Date.valueOf("2020-10-10"));
+        // emp2 = new DummyEmployee("Josh", Date.valueOf("2020-10-10"));
+
+        // Create an instance of a subclass of Employee (one-time use)
+        emp1 = getEmployee();
+        emp2 = getEmployee();
+    }
+
+    private Employee getEmployee() {
+        return new Employee("Josh", Date.valueOf("2020-10-10")) {
+            public double pay() {return 0;}
+            public double payTaxes() {return 0;}
+        };
     }
 
     @Test
@@ -49,5 +60,23 @@ public class EmployeeTest {
     @Test
     public void equals_shouldReturnTrue_allPropertiesTheSame() {//business method_should return what_when what happens
         assertEquals(emp1, emp2);   // for objects, equals() gets called
+    }
+
+    // inner class that we changed at line 24
+    private class DummyEmployee extends Employee {
+
+        public DummyEmployee(String name, Date hireDate) {
+            super(name, hireDate);
+        }
+
+        @Override
+        public double pay() {
+            return 0;
+        }
+
+        @Override
+        public double payTaxes() {
+            return 0;
+        }
     }
 }
